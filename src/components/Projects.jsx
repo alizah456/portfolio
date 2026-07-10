@@ -1,7 +1,4 @@
 import { useState } from "react";
-import marina from "../assets/marina.png";
-import vaccination from "../assets/vaccination.png";
-import mall from "../assets/mall.png";
 import marina1 from "../assets/marina1.png";
 import marina2 from "../assets/marina2.png";
 import marina3 from "../assets/marina3.png";
