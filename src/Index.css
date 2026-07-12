@@ -6,4 +6,20 @@ html {
 
 body {
   background: #020617;
+}.swiper {
+  width: 100%;
+  height: 208px;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }

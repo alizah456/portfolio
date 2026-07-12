@@ -1,9 +1,51 @@
-  import { useState } from "react";
+import { useState } from "react";
 import marina from "../assets/marina.png";
 import vaccination from "../assets/vaccination.png";
 import mall from "../assets/mall.png";
+import marina1 from "../assets/marina1.png";
+import marina2 from "../assets/marina2.png";
+import marina3 from "../assets/marina3.png";
+import marina4 from "../assets/marina4.png";
+import vaccine1 from "../assets/vaccine1.png";
+import vaccine2 from "../assets/vaccine2.png";
+import vaccine3 from "../assets/vaccine3.png";
+import vaccine4 from "../assets/vaccine4.png";
+import mall1 from "../assets/mall1.png";
+import mall2 from "../assets/mall2.png";
+import mall3 from "../assets/mall3.png";
+import mall4 from "../assets/mall4.png";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
   function Projects() {
     const [selectedProject, setSelectedProject] = useState(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+const [lightboxIndex, setLightboxIndex] = useState(0);
+const [lightboxImages, setLightboxImages] = useState([]);
+const marinaImages = [
+  { src: marina1 },
+  { src: marina2 },
+  { src: marina3 },
+  { src: marina4 },
+];
+console.log(marinaImages);
+const vaccineImages = [
+  { src: vaccine1 },
+  { src: vaccine2 },
+  { src: vaccine3 },
+  { src: vaccine4 },
+];
+
+const mallImages = [
+  { src: mall1 },
+  { src: mall2 },
+  { src: mall3 },
+  { src: mall4 },
+];
   return (
     <section
       id="projects"
@@ -24,13 +66,28 @@ import mall from "../assets/mall.png";
           </p>
         </div><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
   <div className="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-400 transition duration-300 hover:-translate-y-2 flex flex-col h-full">
-
+<Swiper
+  modules={[Navigation, Pagination]}
+  navigation
+  pagination={{ clickable: true }}
+  spaceBetween={10}
+  slidesPerView={1}
+>
+{marinaImages.map((img, i) => (
+  <SwiperSlide key={i} className="h-52">
     <img
-      src={marina}
-      alt="Marina Fleets"
-      className="w-full h-52 object-cover"
+      src={img.src}
+      alt={`Marina ${i + 1}`}
+      className="block w-full h-full object-cover cursor-pointer"
+      onClick={() => {
+        setLightboxImages(marinaImages);
+        setLightboxIndex(i);
+        setLightboxOpen(true);
+      }}
     />
-
+  </SwiperSlide>
+))}
+</Swiper>
     <div className="p-6 flex flex-col flex-grow">
 
       <h3 className="text-2xl font-semibold">
@@ -48,20 +105,6 @@ import mall from "../assets/mall.png";
       </div>
 
       <div className="flex gap-3 mt-auto pt-6">
-
-        <button
-          onClick={() =>
-            setSelectedProject({
-              title: "Marina Fleets",
-              description:
-                "A responsive fleet management website with luxury, sailing and fishing ship pages, gallery, contact page and modern responsive UI.",
-            })
-          }
-          className="flex-1 bg-cyan-400 text-slate-950 py-2 rounded-lg font-semibold hover:bg-cyan-300 transition"
-        >
-          View Details
-        </button>
-
         <a
           href="https://github.com/alizah456/marina-fleets"
           target="_blank"
@@ -77,13 +120,28 @@ import mall from "../assets/mall.png";
 
   </div>
   <div className="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-400 transition duration-300 hover:-translate-y-2 flex flex-col h-full">
-
-    <img
-      src={vaccination}
-      alt="Vaccination"
-      className="w-full h-52 object-cover"
-    />
-
+<Swiper
+  modules={[Navigation, Pagination]}
+  navigation
+  pagination={{ clickable: true }}
+  spaceBetween={10}
+  slidesPerView={1}
+>
+  {vaccineImages.map((img, i) => (
+    <SwiperSlide key={i}>
+      <img
+        src={img.src}
+        alt={`Vaccination ${i + 1}`}
+        className="w-full h-52 object-cover cursor-pointer"
+       onClick={() => {
+  setLightboxImages(vaccineImages);
+  setLightboxIndex(i);
+  setLightboxOpen(true);
+}}
+      />
+    </SwiperSlide>
+  ))}
+</Swiper>
     <div className="p-6 flex flex-col flex-grow">
 
       <h3 className="text-2xl font-semibold">
@@ -99,22 +157,7 @@ import mall from "../assets/mall.png";
         <span className="bg-slate-800 px-3 py-1 rounded-full text-sm text-cyan-400">MySQL</span>
       </div>
 
-      <div className="flex gap-3 mt-auto pt-6">
-
-        <button
-          onClick={() =>
-            setSelectedProject({
-              title: "Vaccination Management System",
-              description:
-                "This project allows hospitals to manage vaccination records, patients and reports efficiently.",
-            })
-          }
-          className="flex-1 bg-cyan-400 text-slate-950 py-2 rounded-lg font-semibold hover:bg-cyan-300 transition"
-        >
-          View Details
-        </button>
-
-        <a
+      <div className="flex gap-3 mt-auto pt-6"><a
           href="https://github.com/alizah456/Vaccination_system"
           className="flex-1 text-center border border-cyan-400 text-cyan-400 py-2 rounded-lg hover:bg-cyan-400 hover:text-slate-950 transition"
         >
@@ -127,12 +170,28 @@ import mall from "../assets/mall.png";
 
   </div>
   <div className="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-400 transition duration-300 hover:-translate-y-2 flex flex-col h-full">
-
-    <img
-      src={mall}
-      alt="ABCD Mall"
-      className="w-full h-52 object-cover"
-    />
+<Swiper
+  modules={[Navigation, Pagination]}
+  navigation
+  pagination={{ clickable: true }}
+  spaceBetween={10}
+  slidesPerView={1}
+>
+  {mallImages.map((img, i) => (
+    <SwiperSlide key={i}>
+      <img
+        src={img.src}
+        alt={`Mall ${i + 1}`}
+        className="w-full h-52 object-cover cursor-pointer"
+        onClick={() => {
+          setLightboxImages(mallImages);
+          setLightboxIndex(i);
+          setLightboxOpen(true);
+        }}
+      />
+    </SwiperSlide>
+  ))}
+</Swiper>
 
     <div className="p-6 flex flex-col flex-grow">
 
@@ -150,22 +209,7 @@ import mall from "../assets/mall.png";
         <span className="bg-slate-800 px-3 py-1 rounded-full text-sm text-cyan-400">SQL Server</span>
       </div>
 
-      <div className="flex gap-3 mt-auto pt-6">
-
-        <button
-          onClick={() =>
-            setSelectedProject({
-              title: "ABCD Mall Website",
-              description:
-                "A complete shopping mall management website developed in ASP.NET MVC with SQL Server database integration.",
-            })
-          }
-          className="flex-1 bg-cyan-400 text-slate-950 py-2 rounded-lg font-semibold hover:bg-cyan-300 transition"
-        >
-          View Details
-        </button>
-
-        <a
+      <div className="flex gap-3 mt-auto pt-6"> <a
           href="https://github.com/alizah456/ABCD-mall"
           className="flex-1 text-center border border-cyan-400 text-cyan-400 py-2 rounded-lg hover:bg-cyan-400 hover:text-slate-950 transition"
         >
@@ -201,6 +245,12 @@ import mall from "../assets/mall.png";
     </div>
   </div>
 )}
+<Lightbox
+  open={lightboxOpen}
+  close={() => setLightboxOpen(false)}
+  index={lightboxIndex}
+  slides={lightboxImages}
+/>
     </section>
   );
 }
