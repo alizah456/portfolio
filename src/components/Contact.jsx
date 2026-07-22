@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import emailjs from "@emailjs/browser";
 function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -63,17 +63,29 @@ function Contact() {
 
     return newErrors;
   };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validationErrors = validate();
 
-    const validationErrors = validate();
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    setSuccess("");
+    return;
+  }
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      setSuccess("");
-      return;
-    }
+  try {
+    await emailjs.send(
+      "service_yb5e0vf",
+      "template_hxgdebk", // Replace with your Template ID
+      {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      },
+      "2U0DahAXiUg1NyR4r" 
+    );
 
     setSuccess("Message sent successfully!");
 
@@ -85,8 +97,11 @@ function Contact() {
     });
 
     setErrors({});
-  };
-
+  } catch (error) {
+    console.error("EmailJS Error:", error);
+    setSuccess("Failed to send message. Please try again.");
+  }
+};
   return (
     <section
       id="contact"
